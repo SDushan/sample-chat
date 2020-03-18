@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { SafeAreaView, Text, TouchableOpacity, AsyncStorage } from 'react-native'
+import { SafeAreaView, Text, TouchableOpacity, AsyncStorage, StyleSheet } from 'react-native';
 import User from '../User';
-import styles from '../constants/styles'
+import commonStyles from '../constants/styles';
 
 export default class ProfileScreen extends Component {
 
@@ -9,20 +9,28 @@ export default class ProfileScreen extends Component {
         title: 'Profile'
     }
 
-    _logOut = async () => {
+    logOut = async () => {
         await AsyncStorage.clear();
         this.props.navigation.navigate('Auth');
     }
 
     render() {
+        const { container, textStyle, buttonStyle } = commonStyles;
+        const { buttonContainer } = styles;
         return (
-            <SafeAreaView style={styles.container}>
-                <Text style={{ fontSize: 20 }}>{User.phone}</Text>
-                <Text style={{ fontSize: 20 }}>{User.name}</Text>
-                <TouchableOpacity onPress={this._logOut} style={{ padding: 10, borderBottomColor: '#ccc', borderBottomWidth: 1 }}>
-                    <Text style={styles.textStyle}>Logout</Text>
+            <SafeAreaView style={container}>
+                <Text style={textStyle}>{User.phone}</Text>
+                <Text style={textStyle}>{User.name}</Text>
+                <TouchableOpacity onPress={this.logOut} style={buttonContainer}>
+                    <Text style={buttonStyle}>Logout</Text>
                 </TouchableOpacity>
             </SafeAreaView>
         )
     }
 }
+
+const styles = StyleSheet.create({
+    buttonContainer: {
+        padding: 10,
+    },
+});

@@ -1,7 +1,7 @@
 import React from "react";
 import { ActivityIndicator, AsyncStorage, StatusBar, View } from "react-native";
-import User from "../../User";
 import firebase from "firebase";
+import User from "../User";
 
 export default class AuthLoadingScreen extends React.Component {
   constructor(props) {
@@ -28,7 +28,7 @@ export default class AuthLoadingScreen extends React.Component {
   }
 
   _bootstrapAsync = async () => {
-    User.phone = await AsyncStorage.getItem("mobile");
+    User.phone = await AsyncStorage.getItem("phone");
     this.props.navigation.navigate(User.phone ? "App" : "Auth");
   };
 

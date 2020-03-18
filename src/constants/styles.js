@@ -1,6 +1,6 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
-const styles = StyleSheet.create({
+const commonStyles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -14,10 +14,13 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 10,
   },
-  textStyle: {
+  buttonStyle: {
     fontSize: 20,
     color: 'darkblue',
   },
+  textStyle: {
+    fontSize: 20
+  },
 });
 
-export default styles;
+export default commonStyles;

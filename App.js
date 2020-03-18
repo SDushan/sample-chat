@@ -6,6 +6,8 @@ import ChatScreen from './src/screens/ChatScreen';
 import ProfileScreen from './src/screens/ProfileScreen';
 import AuthLoadingScreen from './src/screens/AuthLoadingScreen';
 
+console.disableYellowBox = true;
+
 const AppStack = createStackNavigator({
   Home: HomeScreen,
   Chat: ChatScreen,

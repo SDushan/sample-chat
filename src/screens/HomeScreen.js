@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
-import { SafeAreaView, Text, TouchableOpacity, FlatList, Image } from 'react-native'
+import { SafeAreaView, Text, TouchableOpacity, FlatList, Image, StyleSheet } from 'react-native';
 import firebase from 'firebase';
 import User from '../User';
+import commonStyles from '../constants/styles';
 
 export default class HomeScreen extends Component {
 
     static navigationOptions = ({ navigation }) => {
         return {
             title: 'Chats',
-            headerright: (
+            headerRight: () => (
                 <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-                    <Image source={require('../images/user.jpg')} style={{ width: 30, height: 30, marginRight: 5 }} />
+                    <Image source={require('../../res/images/user.jpg')} style={styles.imgStyle} />
                 </TouchableOpacity>
             )
         }
@@ -32,6 +33,7 @@ export default class HomeScreen extends Component {
             //         users: [...this.state.users, person]
             //     })
             // }
+            User.name = person.name
             this.setState({
                 users: [...this.state.users, person]
             })
@@ -39,8 +41,8 @@ export default class HomeScreen extends Component {
     }
 
     renderItems = ({ item }) => (
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('Chat', item)} style={{ padding: 10, borderBottomColor: '#ccc', borderBottomWidth: 1 }}>
-            <Text style={{ fontSize: 20 }}>{item.name}</Text>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('Chat', item)} style={styles.itemStyle}>
+            <Text style={commonStyles.textstyle}>{item.name}</Text>
         </TouchableOpacity>
     )
 
@@ -56,3 +58,16 @@ export default class HomeScreen extends Component {
         )
     }
 }
+
+const styles = StyleSheet.create({
+    imgStyle: {
+        width: 30,
+        height: 30,
+        marginRight: 5
+    },
+    itemStyle: {
+        padding: 10,
+        borderBottomColor: '#ccc',
+        borderBottomWidth: 1
+    },
+})

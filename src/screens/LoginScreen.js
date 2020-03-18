@@ -1,8 +1,8 @@
 import React from "react";
 import { SafeAreaView, TextInput, AsyncStorage, TouchableOpacity, Alert, Text } from "react-native";
-import User from '../User'
-import styles from '../constants/styles'
 import firebase from 'firebase';
+import User from '../User';
+import commonStyles from '../constants/styles';
 
 export default class LoginScreen extends React.Component {
 
@@ -17,7 +17,7 @@ export default class LoginScreen extends React.Component {
 
   // async componentDidMount() {
   //   try {
-  //     const value = await AsyncStorage.getItem("mobile");
+  //     const value = await AsyncStorage.getItem("phone");
   //     if (value !== null) {
   //       this.setState({
   //         phone: value
@@ -47,32 +47,33 @@ export default class LoginScreen extends React.Component {
     } else if (name.length < 3) {
       Alert.alert("Error", "Invalid name");
     } else {
-      await AsyncStorage.setItem("mobile", this.state.phone);
-      User.phone = this.state.phone;
-      firebase.database().ref('users/' + User.phone).set({ name: this.state.name })
+      await AsyncStorage.setItem("phone", phone);
+      User.phone = phone;
+      firebase.database().ref('users/' + User.phone).set({ name: name })
       this.props.navigation.navigate('App');
     }
   };
 
   render() {
+    const { phone, name } = this.state;
+    const { container, inputStyle, buttonStyle } = commonStyles;
     return (
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={container}>
         <TextInput
           placeholder="Phone Number"
-          style={styles.inputStyle}
+          style={inputStyle}
           keyboardType="numeric"
           onChangeText={this.onChangeNumber}
-          value={this.state.phone}
+          value={phone}
         />
         <TextInput
           placeholder="Name"
-          style={styles.inputStyle}
+          style={inputStyle}
           onChangeText={this.onChangeName}
-          value={this.state.name}
+          value={name}
         />
-
         <TouchableOpacity onPress={this.onHandleSubmit}>
-          <Text style={styles.textStyle}>Submit</Text>
+          <Text style={buttonStyle}>Submit</Text>
         </TouchableOpacity>
       </SafeAreaView>
     );

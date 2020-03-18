@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { SafeAreaView, View, Text, TouchableOpacity, TextInput, FlatList, Dimensions } from 'react-native'
+import { SafeAreaView, View, Text, TouchableOpacity, TextInput, FlatList, StyleSheet } from 'react-native';
 import firebase from 'firebase';
 import User from '../User';
-import styles from '../constants/styles';
+import commonStyles from '../constants/styles';
 
 export default class ChatScreen extends Component {
 
@@ -66,44 +66,82 @@ export default class ChatScreen extends Component {
         }
     }
 
-    renderItems = ({ item }) => (
-        <View style={{
-            flexDirection: 'row',
-            width: '60%',
-            alignSelf: item.name == User.phone ? 'flex-end' : 'flex-start',
-            backgroundColor: item.name == User.phone ? '#00897b' : '#7cb342',
-            borderRadius: 5,
-            marginBottom: 10
-        }}>
-            <Text style={{ color: '#fff', padding: 7, fontSize: 16 }}>{item.message}</Text>
-            <Text style={{ color: '#eee', padding: 3, fontSize: 12 }}>{this.convertTime(item.time)}</Text>
-        </View>
-    )
+    renderItems = ({ item }) => {
+        const { receiveChatStyle, sendChatStyle, chatMsgStyle, chatTime } = styles;
+        return (
+            <View style={[item.name == User.phone ? sendChatStyle : receiveChatStyle]}>
+                <Text style={chatMsgStyle}>{item.message}</Text>
+                <Text style={chatTime}>{this.convertTime(item.time)}</Text>
+            </View>
+        )
+    }
 
     render() {
-
-        let { height } = Dimensions.get('window');
-
+        const { messageList, text } = this.state;
+        const { inputStyle, buttonStyle } = commonStyles;
+        const { container, inputWrapper, buttonContainer } = styles;
         return (
             <SafeAreaView>
                 <FlatList
-                    style={{ padding: 10, height: height * 0.6 }}
-                    data={this.state.messageList}
+                    style={container}
+                    data={messageList}
                     renderItem={this.renderItems}
                     keyExtractor={(item, index) => index.toString()}
                 />
-                <View style={{ flexDirection: 'row', alignItems: 'center', marginHorizontal: 5 }}>
+                <View style={inputWrapper}>
                     <TextInput
-                        style={styles.inputStyle}
-                        value={this.state.text}
+                        style={inputStyle}
+                        value={text}
                         placeholder='Type message...'
                         onChangeText={this.onHandleChange('text')}
                     />
-                    <TouchableOpacity onPress={this.onSendMessage} style={{ paddingBottom: 10, marginLeft: 5 }}>
-                        <Text style={styles.textStyle}>Send</Text>
+                    <TouchableOpacity onPress={this.onSendMessage} style={buttonContainer}>
+                        <Text style={buttonStyle}>Send</Text>
                     </TouchableOpacity>
                 </View>
             </SafeAreaView>
         )
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        padding: 10,
+        height: '90%'
+    },
+    inputWrapper: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginHorizontal: 5
+    },
+    buttonContainer: {
+        paddingBottom: 10,
+        marginLeft: 5
+    },
+    receiveChatStyle: {
+        flexDirection: 'row',
+        width: '60%',
+        alignSelf: 'flex-start',
+        backgroundColor: '#7cb342',
+        borderRadius: 5,
+        marginBottom: 10
+    },
+    sendChatStyle: {
+        flexDirection: 'row',
+        width: '60%',
+        alignSelf: 'flex-end',
+        backgroundColor: '#00897b',
+        borderRadius: 5,
+        marginBottom: 10
+    },
+    chatMsgStyle: {
+        color: '#fff',
+        padding: 7,
+        fontSize: 16
+    },
+    chatTime: {
+        color: '#eee',
+        padding: 3,
+        fontSize: 12
+    }
+});
