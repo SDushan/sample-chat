@@ -1,5 +1,6 @@
 import React from "react";
-import { SafeAreaView, TextInput, AsyncStorage, TouchableOpacity, Alert, Text } from "react-native";
+import { SafeAreaView, TextInput, TouchableOpacity, Alert, Text } from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import firebase from 'firebase';
 import User from '../User';
 import commonStyles from '../constants/styles';
