@@ -1,10 +1,10 @@
 import {createSwitchNavigator, createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
-import HomeScreen from './src/screens/HomeScreen';
-import LoginScreen from './src/screens/LoginScreen';
-import ChatScreen from './src/screens/ChatScreen';
-import ProfileScreen from './src/screens/ProfileScreen';
-import AuthLoadingScreen from './src/screens/AuthLoadingScreen';
+import HomeScreen from './screens/HomeScreen';
+import LoginScreen from './screens/LoginScreen';
+import ChatScreen from './screens/ChatScreen';
+import ProfileScreen from './screens/ProfileScreen';
+import AuthLoadingScreen from './screens/AuthLoadingScreen';
 
 console.disableYellowBox = true;
 

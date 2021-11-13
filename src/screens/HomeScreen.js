@@ -42,7 +42,7 @@ export default class HomeScreen extends Component {
 
     renderItems = ({ item }) => (
         <TouchableOpacity onPress={() => this.props.navigation.navigate('Chat', item)} style={styles.itemStyle}>
-            <Text style={commonStyles.textstyle}>{item.name}</Text>
+            <Text style={commonStyles.textStyle}>{item.name}</Text>
         </TouchableOpacity>
     )
 
