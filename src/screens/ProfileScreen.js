@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { SafeAreaView, Text, TouchableOpacity, AsyncStorage, StyleSheet } from 'react-native';
+import { SafeAreaView, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import User from '../User';
 import commonStyles from '../constants/styles';
 

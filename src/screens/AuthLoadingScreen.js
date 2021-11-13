@@ -1,5 +1,6 @@
 import React from "react";
-import { ActivityIndicator, AsyncStorage, StatusBar, View } from "react-native";
+import { ActivityIndicator, StatusBar, View } from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import firebase from "firebase";
 import User from "../User";
 
